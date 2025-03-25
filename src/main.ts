@@ -26,7 +26,6 @@ function getCheckReleaseArguments(): string[] {
         getFeatureGroup(rustCore.input.getInput("feature-group")),
         optionFromList("--features", rustCore.input.getInputList("features")),
         rustCore.input.getInputBool("verbose") ? ["--verbose"] : [],
-        "--baseline-rev main",
     ].flat();
 }
 
@@ -112,7 +111,7 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     // need to set the target directory explicitly.
     process.env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR;
 
-    await cargo.call(["semver-checks", "check-release"].concat(getCheckReleaseArguments()));
+    await cargo.call(["semver-checks", "--baseline-rev main"].concat(getCheckReleaseArguments()));
 }
 
 async function installCargoSemverChecksFromPrecompiledBinary(): Promise<void> {
