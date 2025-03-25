@@ -26,6 +26,7 @@ function getCheckReleaseArguments(): string[] {
         getFeatureGroup(rustCore.input.getInput("feature-group")),
         optionFromList("--features", rustCore.input.getInputList("features")),
         rustCore.input.getInputBool("verbose") ? ["--verbose"] : [],
+        "--baseline-rev main",
     ].flat();
 }
 
