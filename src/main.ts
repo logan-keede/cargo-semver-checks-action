@@ -115,6 +115,7 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     let repoUrl = 'https://github.com/apache/datafusion.git';
     await git.addRemote(name, repoUrl);
     await git.fetch(name, 'main');
+    await git.pull(name, 'main');
     await cargo.call(["semver-checks", "--baseline-rev", "main"].concat(getCheckReleaseArguments()));
 }
 
