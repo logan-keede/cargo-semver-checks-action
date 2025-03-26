@@ -4,7 +4,7 @@ import * as github from "@actions/github";
 import * as io from "@actions/io";
 import * as toolCache from "@actions/tool-cache";
 import * as rustCore from "@actions-rs/core";
-
+import {simpleGit} from "simple-git";
 import {
     getErrorMessage,
     getPlatformMatchingTarget,
@@ -15,6 +15,7 @@ import {
 import { RustdocCache } from "./rustdoc-cache";
 
 const CARGO_TARGET_DIR = path.join("semver-checks", "target");
+const git = simpleGit();
 
 function getCheckReleaseArguments(): string[] {
     return [
@@ -110,7 +111,10 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     // the action is run inside a workspace or on a single crate. We therefore
     // need to set the target directory explicitly.
     process.env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR;
-
+    let name = 'origin';
+    let repoUrl = 'https://github.com/apache/datafusion.git';
+    await git.addRemote(name, repoUrl);
+    await git.fetch(name, 'main');
     await cargo.call(["semver-checks", "--baseline-rev", "main"].concat(getCheckReleaseArguments()));
 }
 

@@ -31,7 +31,9 @@
     "@actions/io": "^1.1.2",
     "@actions/tool-cache": "^2.0.1",
     "folder-hash": "^4.0.4",
-    "glob": "^11.0.0"
+    "github": "github:actions/github",
+    "glob": "^11.0.0",
+    "simple-git": "^3.27.0"
   },
   "devDependencies": {
     "@types/folder-hash": "^4.0.2",
