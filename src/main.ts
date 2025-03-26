@@ -111,7 +111,7 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     // the action is run inside a workspace or on a single crate. We therefore
     // need to set the target directory explicitly.
     process.env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR;
-    let name = 'origin';
+    let name = 'upstream';
     let repoUrl = 'https://github.com/apache/datafusion.git';
     await git.addRemote(name, repoUrl);
     await git.fetch(name, 'main');
