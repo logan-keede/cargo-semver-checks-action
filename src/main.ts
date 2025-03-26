@@ -14,7 +14,7 @@ import {
 } from "./utils";
 import { RustdocCache } from "./rustdoc-cache";
 
-const CARGO_TARGET_DIR = path.join("semver-checks", "target");
+const CARGO_TARGET_DIR = path.join("target");
 const git = simpleGit();
 
 function getCheckReleaseArguments(): string[] {
