@@ -4,7 +4,7 @@ import * as github from "@actions/github";
 import * as io from "@actions/io";
 import * as toolCache from "@actions/tool-cache";
 import * as rustCore from "@actions-rs/core";
-import {simpleGit} from "simple-git";
+import {GitConfigScope, simpleGit} from "simple-git";
 import {
     getErrorMessage,
     getPlatformMatchingTarget,
@@ -114,6 +114,7 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     let name = 'upstream';
     let repoUrl = 'https://github.com/apache/datafusion.git';
     await git.addRemote(name, repoUrl);
+    await git.addConfig('pull.merge', 'true');
     await git.fetch(name, 'main');
     await git.pull(name, 'main');
     await cargo.call(["semver-checks", "--baseline-rev", "main"].concat(getCheckReleaseArguments()));
