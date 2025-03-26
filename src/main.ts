@@ -12,9 +12,9 @@ import {
     optionFromList,
     optionIfValueProvided,
 } from "./utils";
-import { RustdocCache } from "./rustdoc-cache";
+// import { RustdocCache } from "./rustdoc-cache";
 
-const CARGO_TARGET_DIR = path.join("target");
+// const CARGO_TARGET_DIR = path.join("target");
 const git = simpleGit();
 
 function getCheckReleaseArguments(): string[] {
@@ -110,7 +110,7 @@ async function runCargoSemverChecks(cargo: rustCore.Cargo): Promise<void> {
     // The default location of the target directory varies depending on whether
     // the action is run inside a workspace or on a single crate. We therefore
     // need to set the target directory explicitly.
-    process.env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR;
+    // process.env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR;
     let name = 'upstream';
     let repoUrl = 'https://github.com/apache/datafusion.git';
     await git.addRemote(name, repoUrl);
@@ -164,15 +164,15 @@ async function run(): Promise<void> {
 
     await installCargoSemverChecks(cargo);
 
-    const cache = new RustdocCache(
-        cargo,
-        path.join(CARGO_TARGET_DIR, "semver-checks", "cache"),
-        manifestDir,
-    );
+    // const cache = new RustdocCache(
+    //     cargo,
+    //     path.join(CARGO_TARGET_DIR, "semver-checks", "cache"),
+    //     manifestDir,
+    // );
 
-    await cache.restore();
+    // await cache.restore();
     await runCargoSemverChecks(cargo);
-    await cache.save();
+    // await cache.save();
 }
 
 async function main() {
